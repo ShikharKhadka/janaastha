@@ -2,37 +2,35 @@ name: jana_aastha
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
+environment:
   sdk: '>=2.16.2 <3.0.0'
 
-dependencies: 
-  cupertino_icons: ^1.0.2
-  get: 4.6.5
-  flutter_screenutil: ^5.5.4
-  http: ^0.13.5
+dependencies:
   cached_network_image: ^3.2.0
-  flutter_html: ^2.2.1
-  nepali_utils: ^3.0.3
-  intl: ^0.17.0
   connectivity_plus: ^2.3.7
-
-
-
-
-
-  
-  flutter:  
+  cupertino_icons: ^1.0.2
+  flutter:
     sdk: flutter
+  flutter_html: ^2.2.1
+  flutter_native_splash: 
+  flutter_screenutil: ^5.5.4
+  flutter_staggered_grid_view: ^0.6.2
+  flutter_svg: ^0.23.0+1
+  get: 4.6.5
+  http: ^0.13.5
+  internet_file: ^1.2.0
+  intl: ^0.17.0
+  nepali_utils: ^3.0.3
+  pdfx: ^2.3.0
+  turn_page_transition: ^0.2.0
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^1.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
   assets:
     - assets/images/
-   
-   
-
+    - assets/svg/

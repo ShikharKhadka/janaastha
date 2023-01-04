@@ -6,22 +6,22 @@ import 'package:get/get.dart';
 import 'package:jana_aastha/app/model/news_model.dart';
 import 'package:jana_aastha/app/modules/news_detail/views/news_detail_view.dart';
 import 'package:jana_aastha/utils/constants.dart';
-import 'package:nepali_utils/nepali_utils.dart';
+import 'package:jana_aastha/utils/string_extenion.dart';
 
 class LargeHorizontalNewsCard extends StatelessWidget {
   // final String imageUrl, title, shortDesc, author;
-  final String? imageUrl;
+  // final String? imageUrl;
   // final Post news;
-  final Post? newsResult;
+  final Post newsResult;
   const LargeHorizontalNewsCard({
     Key? key,
-    this.imageUrl =
-        'https://thahacdn.prixacdn.net/media/albums/shapath_12_n9f8PxA3jC.jpg',
+    // this.imageUrl =
+    //     'https://thahacdn.prixacdn.net/media/albums/shapath_12_n9f8PxA3jC.jpg',
     // required this.title,
     // required this.shortDesc,
     // this.dateNepali,
     // required this.author,
-    this.newsResult,
+    required this.newsResult,
     // required this.news
   }) : super(key: key);
 
@@ -43,7 +43,7 @@ class LargeHorizontalNewsCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        newsResult!.title!,
+                        newsResult.title,
                         style: titleStyle1,
                         maxLines: 2,
                       ),
@@ -66,7 +66,7 @@ class LargeHorizontalNewsCard extends StatelessWidget {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      newsResult!.author!,
+                                      newsResult.author,
                                       textAlign: TextAlign.left,
                                       style: authorStyle,
                                     ),
@@ -76,58 +76,41 @@ class LargeHorizontalNewsCard extends StatelessWidget {
                           SizedBox(
                             width: 10.r,
                           ),
-                          SizedBox(
-                            child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.access_time_filled,
-                                    color: AppColors.iconColor,
-                                    size: 15.r,
-                                  ),
-                                  SizedBox(
-                                    width: 5.r,
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      // dateNepali!,
-                                      "${NepaliDateFormat("d MMMM y, EEE").format(NepaliDateTime.parse(newsResult!.modified!.toString()))}",
-                                      textAlign: TextAlign.left,
-                                      style: authorStyle,
-                                    ),
-                                  ),
-                                ]),
-                          ),
+                          newsResult.dateNepali.parseToNepaliDateTime != null
+                              ? SizedBox(
+                                  child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.access_time_filled,
+                                          color: AppColors.iconColor,
+                                          size: 15.r,
+                                        ),
+                                        SizedBox(
+                                          width: 5.r,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            newsResult.dateNepali
+                                                .parseToNepaliDateTime!,
+                                            textAlign: TextAlign.left,
+                                            style: authorStyle,
+                                          ),
+                                        ),
+                                      ]),
+                                )
+                              : Container()
                         ],
                       ),
-                      // Row(
-                      //   children: [
-                      //     Text(
-                      //       "53 Minutes Ago | CA",
-                      //       textAlign: TextAlign.left,
-                      //       style: authorStyle,
-                      //     ),
-                      //     Spacer(),
-                      //     Icon(
-                      //       Icons.bookmark,
-                      //       color: AppColors.greyColor,
-                      //     ),
-                      //   ],
-                      // ),
                       Divider(
                         thickness: 1,
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
-                      // Text(
-                      //   shortDesc,
-                      //   style: subtitleStyle,
-                      //   overflow: TextOverflow.ellipsis,
-                      //   maxLines: 4,
-                      // ),
                       Html(
-                        data: newsResult!.shortDesc!,
+                        data: newsResult.shortDesc,
                         style: {
                           "#": Style(
                             fontSize: FontSize(15.sp),
@@ -168,7 +151,7 @@ class LargeHorizontalNewsCard extends StatelessWidget {
                         height: 180.h,
                         width: Get.width,
                         child: CachedNetworkImage(
-                          imageUrl: imageUrl!,
+                          imageUrl: newsResult.titlePhoto!,
                           fit: BoxFit.cover,
                           placeholder: (context, url) => Center(
                             child: CircularProgressIndicator.adaptive(),

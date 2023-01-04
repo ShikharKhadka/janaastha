@@ -7,17 +7,13 @@ import 'package:jana_aastha/app/model/news_model.dart';
 import 'package:jana_aastha/app/modules/news_detail/views/news_detail_view.dart';
 import 'package:jana_aastha/utils/constants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:nepali_utils/nepali_utils.dart';
+import 'package:jana_aastha/utils/string_extenion.dart';
 
 class LargeVerticalNewsCard extends StatelessWidget {
-  final String imageUrl;
-
-  final Post? newsResult;
+  final Post newsResult;
   const LargeVerticalNewsCard({
     Key? key,
     required this.newsResult,
-    required this.imageUrl,
-
     // required this.news
   }) : super(key: key);
 
@@ -36,7 +32,7 @@ class LargeVerticalNewsCard extends StatelessWidget {
               height: 160.h,
               width: Get.width,
               child: CachedNetworkImage(
-                imageUrl: imageUrl,
+                imageUrl: newsResult.titlePhoto ?? "",
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Center(
                   child: CircularProgressIndicator.adaptive(),
@@ -50,7 +46,7 @@ class LargeVerticalNewsCard extends StatelessWidget {
               height: 5.h,
             ),
             Text(
-              newsResult!.title!,
+              newsResult.title,
               style: titleStyle1,
             ),
             SizedBox(
@@ -72,7 +68,7 @@ class LargeVerticalNewsCard extends StatelessWidget {
                         ),
                         Flexible(
                           child: Text(
-                            newsResult!.author!,
+                            newsResult.author,
                             textAlign: TextAlign.left,
                             style: authorStyle,
                           ),
@@ -82,69 +78,39 @@ class LargeVerticalNewsCard extends StatelessWidget {
                 SizedBox(
                   width: 10.r,
                 ),
-                SizedBox(
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.access_time_filled,
-                          color: AppColors.iconColor,
-                          size: 15.r,
-                        ),
-                        SizedBox(
-                          width: 5.r,
-                        ),
-                        Flexible(
-                          child: Text(
-                            "${NepaliDateFormat("d MMMM y, EEE").format(NepaliDateTime.parse(newsResult!.modified!.toString()))}",
-                            textAlign: TextAlign.left,
-                            style: authorStyle,
-                          ),
-                        ),
-                      ]),
-                ),
+                newsResult.dateNepali.parseToNepaliDateTime != null
+                    ? SizedBox(
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.access_time_filled,
+                                color: AppColors.iconColor,
+                                size: 15.r,
+                              ),
+                              SizedBox(
+                                width: 5.r,
+                              ),
+                              Flexible(
+                                child: Text(
+                                  newsResult.dateNepali.parseToNepaliDateTime!,
+                                  textAlign: TextAlign.left,
+                                  style: authorStyle,
+                                ),
+                              ),
+                            ]),
+                      )
+                    : Container()
               ],
             ),
-            // Row(
-            //   children: [
-            //     Text(
-            //       "53 Minutes Ago | CA",
-            //       textAlign: TextAlign.left,
-            //       style: authorStyle,
-            //     ),
-            //     Spacer(),
-            //     Icon(
-            //       Icons.video_call,
-            //       color: AppColors.greyColor,
-            //     ),
-            //     Icon(
-            //       Icons.link,
-            //       color: AppColors.greyColor,
-            //     ),
-            //     Icon(
-            //       Icons.more_horiz,
-            //       color: AppColors.greyColor,
-            //     ),
-            //     Icon(
-            //       Icons.bookmark,
-            //       color: AppColors.greyColor,
-            //     ),
-            //   ],
-            // ),
             Divider(
               thickness: 1,
             ),
             SizedBox(
               height: 3.h,
             ),
-            // Text(
-            //   shortDesc,
-            //   style: subtitleStyle,
-            //   overflow: TextOverflow.ellipsis,
-            //   maxLines: 5,
-            // ),
             Html(
-              data: newsResult!.shortDesc!,
+              data: newsResult.shortDesc,
               style: {
                 "#": Style(
                   fontSize: FontSize(15.sp),

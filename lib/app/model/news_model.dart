@@ -2,20 +2,19 @@
 //
 //     final newsModel = newsModelFromJson(jsonString);
 
-import 'dart:convert';
 
 class NewsModel {
   NewsModel({
-    this.status,
-    this.count,
-    this.countTotal,
-    this.posts,
+    required this.status,
+    required this.count,
+    required this.countTotal,
+    required this.posts,
   });
 
-  String? status;
-  int? count;
-  int? countTotal;
-  List<Post>? posts;
+  String status;
+  int count;
+  int countTotal;
+  List<Post> posts;
 
   factory NewsModel.fromJson(Map<String, dynamic> json) => NewsModel(
         status: json["status"],
@@ -28,50 +27,50 @@ class NewsModel {
         "status": status,
         "count": count,
         "count_total": countTotal,
-        "posts": List<dynamic>.from(posts!.map((x) => x.toJson())),
+        "posts": List<dynamic>.from(posts.map((x) => x.toJson())),
       };
 }
 
 class Post {
   Post({
-    this.id,
-    this.type,
-    this.typeTitle,
-    this.slug,
-    this.url,
-    this.status,
-    this.title,
-    this.titlePlain,
+    required this.id,
+    required this.type,
+    required this.typeTitle,
+    required this.slug,
+    required this.url,
+    required this.status,
+    required this.title,
+    required this.titlePlain,
     this.titlePhoto,
     this.titlePhotoSmallThumb,
     this.titlePhotoMediumThumb,
-    this.shortDesc,
-    this.content,
-    this.dateNepali,
-    this.modified,
-    this.timesince,
-    this.author,
-    this.authorUrl,
+    required this.shortDesc,
+    required this.content,
+    required this.dateNepali,
+    required this.modified,
+    required this.timesince,
+    required this.author,
+    required this.authorUrl,
   });
 
-  int? id;
-  String? type;
-  String? typeTitle;
-  String? slug;
-  String? url;
-  String? status;
-  String? title;
-  String? titlePlain;
-  dynamic titlePhoto;
-  dynamic titlePhotoSmallThumb;
-  dynamic titlePhotoMediumThumb;
-  String? shortDesc;
-  String? content;
-  String? dateNepali;
-  String? modified;
-  String? timesince;
-  String? author;
-  String? authorUrl;
+  int id;
+  String type;
+  String typeTitle;
+  String slug;
+  String url;
+  String status;
+  String title;
+  String titlePlain;
+  String? titlePhoto;
+  String? titlePhotoSmallThumb;
+  String? titlePhotoMediumThumb;
+  String shortDesc;
+  String content;
+  String dateNepali;
+  String modified;
+  String timesince;
+  String author;
+  String authorUrl;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
         id: json["id"],
@@ -109,7 +108,7 @@ class Post {
         "short_desc": shortDesc,
         "content": content,
         "date_nepali": dateNepali,
-        "modified": modified!,
+        "modified": modified,
         "timesince": timesince,
         "author": author,
         "author_url": authorUrl,

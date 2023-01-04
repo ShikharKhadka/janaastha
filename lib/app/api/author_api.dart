@@ -1,14 +1,14 @@
 import 'package:http/http.dart' as http;
+import 'package:jana_aastha/app/endpoints/endpoints.dart';
 import 'dart:convert';
 import 'dart:developer';
 
 import 'package:jana_aastha/app/model/author_model.dart';
-import 'package:jana_aastha/utils/global_url.dart';
 
 class AuthorApi {
-  Future<dynamic> getNews() async {
+  Future<dynamic> getAuthor() async {
     try {
-      String url = "${GlobalUrl.author}";
+      String url = "${EndPoints.baseUrl}${EndPoints.author}";
       log(":::::::::::::::::::$url::::::::::::::::::::::");
       var response = await http.get(Uri.parse(url));
       log("Respone:::::::${response.statusCode} ");

@@ -1,19 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:jana_aastha/app/modules/custom_drawer/views/custom_drawer_view.dart';
-import 'package:jana_aastha/app/modules/e_paper/views/e_paper_view.dart';
 
 import 'package:jana_aastha/app/modules/explore/views/explore_view.dart';
-import 'package:jana_aastha/app/modules/home/views/home_view.dart';
-import 'package:jana_aastha/app/modules/recent_news/views/recent_news_view.dart';
+import 'package:jana_aastha/app/modules/news/views/news_view.dart';
 import 'package:jana_aastha/utils/constants.dart';
 import 'package:nepali_utils/nepali_utils.dart';
-
+import 'package:jana_aastha/app/routes/app_pages.dart';
 import '../controllers/dashboard_controller.dart';
+import 'package:jana_aastha/utils/category_enums.dart';
 
 class DashboardView extends GetView<DashboardController> {
   const DashboardView({Key? key}) : super(key: key);
@@ -23,13 +22,19 @@ class DashboardView extends GetView<DashboardController> {
       icon: Icons.home_filled,
     ),
     // BottomNavOptions(name: "Search", icon: Icons.search),
-    BottomNavOptions(name: "My news", icon: Icons.newspaper),
+    BottomNavOptions(name: "Recent News", icon: Icons.newspaper),
     BottomNavOptions(name: "Explore", icon: CupertinoIcons.compass),
   ];
 
   static List<Widget> views = [
-    HomeView(),
-    RecentNewsView(),
+    NewsView(
+      category: CategoryTabs.home,
+      newsListType: NewsListType.regular,
+    ),
+    NewsView(
+      category: CategoryTabs.recent,
+      newsListType: NewsListType.regular,
+    ),
     ExploreView(),
     // SearchView(),
   ];
@@ -55,12 +60,13 @@ class DashboardView extends GetView<DashboardController> {
                         height: 5.r,
                       ),
                       Text(
-                        "${NepaliUnicode.convert(NepaliDateFormat("d MMMM y, EEE").format(NepaliDateTime.parse(DateTime.now().toString())))} | ${DateFormat('E').format(DateTime.now())}",
+                        NepaliDateFormat.yMMMMEEEEd(Language.nepali)
+                            .format(NepaliDateTime.now()),
                         textAlign: TextAlign.left,
                         style: dateStyle,
                       ),
                       Text(
-                        "${DateFormat('MMM d y').format(DateTime.now())}",
+                        "${DateFormat('EEEE').format(DateTime.now())} || ${DateFormat('MMM d y').format(DateTime.now())}",
                         textAlign: TextAlign.left,
                         style: dateStyle,
                       ),
@@ -75,7 +81,7 @@ class DashboardView extends GetView<DashboardController> {
                             color: AppColors.whiteColor,
                           ),
                           child: IconButton(
-                              onPressed: () => Get.to(() => EPaperView()),
+                              onPressed: () => Get.toNamed(Routes.E_PAPER),
                               icon: Icon(
                                 Icons.newspaper,
                                 color: AppColors.secColor,
@@ -108,7 +114,82 @@ class DashboardView extends GetView<DashboardController> {
               backgroundColor: AppColors.primaryColor,
               automaticallyImplyLeading: false,
             ),
-            drawer: CustomDrawerView(),
+            drawer: Drawer(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      children: [
+                        DrawerHeader(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 40.r),
+                            child: Image.asset(
+                              'assets/images/logo1.png',
+                            ),
+                          ),
+                          decoration:
+                              BoxDecoration(color: AppColors.primaryColor),
+                        ),
+                        ...controller.drawerCategories.map(
+                          (category) => category.subCategories.isEmpty
+                              ? ListTile(
+                                  leading: SvgPicture.asset(
+                                    'assets/svg/${category.name}.svg',
+                                    height: 25,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                  title: Text(category.nepaliNames),
+                                  onTap: () {
+                                    Get.to(
+                                      () => NewsView(
+                                        category: category,
+                                        newsListType: NewsListType.regular,
+                                      ),
+                                    );
+                                  },
+                                )
+                              : ExpansionTile(
+                                  title: Text(category.nepaliNames),
+                                  leading: SvgPicture.asset(
+                                    'assets/svg/${category.name}.svg',
+                                    height: 25,
+                                  ),
+                                  children: category.subCategories
+                                      .map((subCategory) => ListTile(
+                                            title:
+                                                Text(subCategory.nepaliNames),
+                                            onTap: () {
+                                              Get.to(
+                                                () => NewsView(
+                                                  category: subCategory,
+                                                  isSubCategory: true,
+                                                  newsListType:
+                                                      NewsListType.regular,
+                                                ),
+                                              );
+                                            },
+                                          ))
+                                      .toList(),
+                                ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text("Powered By"),
+                        Image.asset('assets/images/prixa_image.png'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             backgroundColor: Theme.of(context).colorScheme.background,
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor: Theme.of(context).colorScheme.surface,
