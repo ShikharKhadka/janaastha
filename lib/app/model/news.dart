@@ -23,26 +23,26 @@ class News {
 }
 
 class Post {
-  Post({
-    this.id,
-    this.type,
-    this.typeTitle,
-    this.slug,
-    this.url,
-    this.status,
-    this.title,
-    this.titlePlain,
-    this.titlePhoto,
-    this.titlePhotoSmallThumb,
-    this.titlePhotoMediumThumb,
-    this.shortDesc,
-    this.content,
-    this.dateNepali,
-    this.modified,
-    this.timesince,
-    this.author,
-    this.authorUrl,
-  });
+  Post(
+      {this.id,
+      this.type,
+      this.typeTitle,
+      this.slug,
+      this.url,
+      this.status,
+      this.title,
+      this.titlePlain,
+      this.titlePhoto,
+      this.titlePhotoSmallThumb,
+      this.titlePhotoMediumThumb,
+      this.shortDesc,
+      this.content,
+      this.dateNepali,
+      this.modified,
+      this.timesince,
+      this.author,
+      this.authorUrl,
+      required this.pdf});
 
   int? id;
   String? type;
@@ -62,25 +62,26 @@ class Post {
   String? timesince;
   String? author;
   String? authorUrl;
+  String pdf;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
-        id: json["id"],
-        type: json["type"],
-        typeTitle: json["type_title"],
-        slug: json["slug"],
-        url: json["url"],
-        status: json["status"],
-        title: json["title"],
-        titlePlain: json["title_plain"],
-        titlePhoto: json["title_photo"],
-        titlePhotoSmallThumb: json["title_photo_small_thumb"],
-        titlePhotoMediumThumb: json["title_photo_medium_thumb"],
-        shortDesc: json["short_desc"],
-        content: json["content"],
-        dateNepali: DateTime.parse(json["date_nepali"]),
-        modified: DateTime.parse(json["modified"]),
-        timesince: json["timesince"],
-        author: json["author"],
-        authorUrl: json["author_url"],
-      );
+      id: json["id"],
+      type: json["type"],
+      typeTitle: json["type_title"],
+      slug: json["slug"],
+      url: json["url"],
+      status: json["status"],
+      title: json["title"],
+      titlePlain: json["title_plain"],
+      titlePhoto: json["title_photo"],
+      titlePhotoSmallThumb: json["title_photo_small_thumb"],
+      titlePhotoMediumThumb: json["title_photo_medium_thumb"],
+      shortDesc: json["short_desc"],
+      content: json["content"],
+      dateNepali: DateTime.parse(json["date_nepali"]),
+      modified: DateTime.parse(json["modified"]),
+      timesince: json["timesince"],
+      author: json["author"],
+      authorUrl: json["author_url"],
+      pdf: json["author_url"]);
 }

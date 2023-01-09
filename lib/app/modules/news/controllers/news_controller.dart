@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:jana_aastha/app/api/news_api.dart';
 import 'package:jana_aastha/app/endpoints/endpoints.dart';
 import 'package:jana_aastha/app/model/author_model.dart';
+import 'package:jana_aastha/app/modules/search/controllers/search_controller.dart';
 import 'package:jana_aastha/utils/category_enums.dart';
 import 'package:jana_aastha/app/model/news_model.dart';
 
@@ -16,19 +17,23 @@ class NewsController extends GetxController {
   final isLoading = false.obs;
   final isFetchingNextPage = false.obs;
   int currentPage = 0;
-
+  String searchText = '';
   NewsController({
     required this.category,
     this.author,
   });
   @override
   void onInit() async {
+    log(category.name);
     super.onInit();
     scrollController = ScrollController()..addListener(_scrollListener);
-    await getNews();
+    if (category != CategoryTabs.search) {
+      await getNews();
+    }
   }
 
   void _scrollListener() async {
+    Get.find<SearchController>().dismissKeyboard();
     if (scrollController.position.pixels ==
                 scrollController.position.maxScrollExtent &&
             !isFetchingNextPage.value
@@ -52,7 +57,9 @@ class NewsController extends GetxController {
         path = '${EndPoints.author_news}/${author!.id}';
       } else {
         path = EndPoints.news;
-        if (category != CategoryTabs.home) {
+        if (category == CategoryTabs.search) {
+          queryString += '&searchq=$searchText';
+        } else if (category != CategoryTabs.home) {
           queryString += '&cat=${category.slug}';
         }
       }
@@ -71,13 +78,16 @@ class NewsController extends GetxController {
     } catch (_) {
       isLoading(true);
       isFetchingNextPage(true);
-      Get.snackbar('Error', 'No internet connection');
     }
   }
 
-  Future<void> onRefresh() async {
+  void reset() {
     newsList = [];
     currentPage = 0;
+  }
+
+  Future<void> onRefresh() async {
+    reset();
     getNews();
   }
 }

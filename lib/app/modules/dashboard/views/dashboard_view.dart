@@ -75,21 +75,6 @@ class DashboardView extends GetView<DashboardController> {
                   SizedBox(
                     child: Row(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            color: AppColors.whiteColor,
-                          ),
-                          child: IconButton(
-                              onPressed: () => Get.toNamed(Routes.E_PAPER),
-                              icon: Icon(
-                                Icons.newspaper,
-                                color: AppColors.secColor,
-                              )),
-                        ),
-                        SizedBox(
-                          width: 10.r,
-                        ),
                         Builder(builder: (context) {
                           return Container(
                             decoration: BoxDecoration(
@@ -106,6 +91,36 @@ class DashboardView extends GetView<DashboardController> {
                                 )),
                           );
                         }),
+                        SizedBox(
+                          width: 10.r,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: AppColors.whiteColor,
+                          ),
+                          child: IconButton(
+                              onPressed: () => Get.toNamed(Routes.E_PAPER),
+                              icon: Icon(
+                                Icons.newspaper,
+                                color: AppColors.secColor,
+                              )),
+                        ),
+                        SizedBox(
+                          width: 10.r,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: AppColors.whiteColor,
+                          ),
+                          child: IconButton(
+                              onPressed: () => Get.toNamed(Routes.SEARCH),
+                              icon: Icon(
+                                Icons.search,
+                                color: AppColors.secColor,
+                              )),
+                        ),
                       ],
                     ),
                   )
@@ -140,7 +155,7 @@ class DashboardView extends GetView<DashboardController> {
                                     height: 25,
                                     color: AppColors.primaryColor,
                                   ),
-                                  title: Text(category.nepaliNames),
+                                  title: Text(category.displayName),
                                   onTap: () {
                                     Get.to(
                                       () => NewsView(
@@ -151,15 +166,24 @@ class DashboardView extends GetView<DashboardController> {
                                   },
                                 )
                               : ExpansionTile(
-                                  title: Text(category.nepaliNames),
+                                  title: Text(category.displayName),
                                   leading: SvgPicture.asset(
                                     'assets/svg/${category.name}.svg',
                                     height: 25,
                                   ),
                                   children: category.subCategories
                                       .map((subCategory) => ListTile(
+                                            leading: subCategory.hasIcon
+                                                ? SvgPicture.asset(
+                                                    'assets/svg/${subCategory.name}.svg',
+                                                    height: 25,
+                                                    width: 25,
+                                                    color:
+                                                        AppColors.primaryColor,
+                                                  )
+                                                : null,
                                             title:
-                                                Text(subCategory.nepaliNames),
+                                                Text(subCategory.displayName),
                                             onTap: () {
                                               Get.to(
                                                 () => NewsView(

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class CustomGetUtils {
   CustomGetUtils._();
   static Future<void> getBottomSheet({required Widget child}) {
-    return Get.bottomSheet(
+    return Get.bottomSheet(  
         SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,

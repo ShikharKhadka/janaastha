@@ -1,5 +1,3 @@
-
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
@@ -67,8 +65,17 @@ class ExploreView extends StatelessWidget {
                                             final subCategory =
                                                 category.subCategories[index];
                                             return ListTile(
+                                                leading: subCategory.hasIcon
+                                                    ? SvgPicture.asset(
+                                                        'assets/svg/${subCategory.name}.svg',
+                                                        height: 30,
+                                                        width: 30,
+                                                        color: AppColors
+                                                            .primaryColor,
+                                                      )
+                                                    : null,
                                                 title: Text(
-                                                    subCategory.nepaliNames),
+                                                    subCategory.displayName),
                                                 onTap: (() {
                                                   Get.to(() => NewsView(
                                                       category: subCategory,
@@ -107,7 +114,7 @@ class ExploreView extends StatelessWidget {
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(top: 8.0),
-                                        child: Text(category.nepaliNames,
+                                        child: Text(category.displayName,
                                             style: normalStylewithBold),
                                       ),
                                     ],

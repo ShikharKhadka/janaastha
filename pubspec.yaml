@@ -9,6 +9,7 @@ dependencies:
   cached_network_image: ^3.2.0
   connectivity_plus: ^2.3.7
   cupertino_icons: ^1.0.2
+  easy_image_viewer: ^1.2.0
   flutter:
     sdk: flutter
   flutter_html: ^2.2.1
@@ -22,6 +23,7 @@ dependencies:
   intl: ^0.17.0
   nepali_utils: ^3.0.3
   pdfx: ^2.3.0
+  share_plus: ^4.5.3
   turn_page_transition: ^0.2.0
 
 dev_dependencies:

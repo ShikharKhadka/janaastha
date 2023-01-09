@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:internet_file/internet_file.dart';
+
 import 'package:jana_aastha/app/api/epaper_api.dart';
 import 'package:jana_aastha/app/model/epaper_model.dart';
 import 'package:pdfx/pdfx.dart';

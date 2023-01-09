@@ -1,12 +1,13 @@
-import 'package:flutter/cupertino.dart';
+
 
 enum CategoryTabs {
   home,
   recent,
+  search,
   news,
   politics,
   finance,
-  literature,
+  literatureOne,
   health,
   tourism,
   world,
@@ -27,11 +28,17 @@ enum CategoryTabs {
   reader,
   multimedia,
   author,
-  others
+  others,
+  photoFeature,
+  migration,
+  insideCity,
+  noteOfDescents,
+  literature,
+  english,
 }
 
 extension CategoryX on CategoryTabs {
-  String get nepaliNames {
+  String get displayName {
     switch (this) {
       case CategoryTabs.news:
         return "समाचार";
@@ -39,7 +46,7 @@ extension CategoryX on CategoryTabs {
         return "राजनीति";
       case CategoryTabs.finance:
         return "अर्थ";
-      case CategoryTabs.literature:
+      case CategoryTabs.literatureOne:
         return "लेख रचना";
       case CategoryTabs.health:
         return "स्वास्थ्य";
@@ -81,8 +88,20 @@ extension CategoryX on CategoryTabs {
         return "मल्टिमिडिया";
       case CategoryTabs.others:
         return "अन्य";
+      case CategoryTabs.english:
+        return "English";
+      case CategoryTabs.photoFeature:
+        return "फोटो फिचर";
+      case CategoryTabs.literature:
+        return "साहित्य";
+      case CategoryTabs.migration:
+        return "प्रवास";
+      case CategoryTabs.insideCity:
+        return "शहरभित्र";
+      case CategoryTabs.noteOfDescents:
+        return "नोट अफ डिसेन्ट";
       default:
-        return "";
+        return name;
     }
   }
 
@@ -90,7 +109,7 @@ extension CategoryX on CategoryTabs {
     switch (this) {
       case CategoryTabs.news:
         return 'main-news';
-      case CategoryTabs.literature:
+      case CategoryTabs.literatureOne:
         return 'literature-1';
       case CategoryTabs.interviews:
         return 'interviews';
@@ -100,6 +119,12 @@ extension CategoryX on CategoryTabs {
         return 'pradesh-two';
       case CategoryTabs.farwestern:
         return 'far-western';
+      case CategoryTabs.insideCity:
+        return 'inside-city';
+      case CategoryTabs.noteOfDescents:
+        return 'note-of-descents';
+      case CategoryTabs.photoFeature:
+        return 'photo-feature';
       default:
         return name;
     }
@@ -109,6 +134,7 @@ extension CategoryX on CategoryTabs {
     switch (this) {
       case CategoryTabs.home:
       case CategoryTabs.author:
+      case CategoryTabs.search:
       case CategoryTabs.recent:
       case CategoryTabs.pradeshOne:
       case CategoryTabs.pradeshTwo:
@@ -117,6 +143,41 @@ extension CategoryX on CategoryTabs {
       case CategoryTabs.lumbini:
       case CategoryTabs.karnali:
       case CategoryTabs.farwestern:
+      case CategoryTabs.crime:
+      case CategoryTabs.accident:
+      case CategoryTabs.photoFeature:
+      case CategoryTabs.reader:
+      case CategoryTabs.world:
+      case CategoryTabs.literature:
+      case CategoryTabs.tourism:
+      case CategoryTabs.insideCity:
+      case CategoryTabs.noteOfDescents:
+      case CategoryTabs.migration:
+      case CategoryTabs.variety:
+        return false;
+      default:
+        return true;
+    }
+  }
+
+  bool get hasIcon {
+    switch (this) {
+      case CategoryTabs.pradeshOne:
+      case CategoryTabs.pradeshTwo:
+      case CategoryTabs.bagmati:
+      case CategoryTabs.gandaki:
+      case CategoryTabs.lumbini:
+      case CategoryTabs.karnali:
+      case CategoryTabs.farwestern:
+        return false;
+      default:
+        return true;
+    }
+  }
+
+  bool get getViewName {
+    switch (this) {
+      case CategoryTabs.search:
         return false;
       default:
         return true;
@@ -134,6 +195,19 @@ extension CategoryX on CategoryTabs {
           CategoryTabs.lumbini,
           CategoryTabs.karnali,
           CategoryTabs.farwestern
+        ];
+      case CategoryTabs.others:
+        return [
+          CategoryTabs.crime,
+          CategoryTabs.accident,
+          CategoryTabs.photoFeature,
+          CategoryTabs.migration,
+          CategoryTabs.world,
+          CategoryTabs.literature,
+          CategoryTabs.tourism,
+          CategoryTabs.insideCity,
+          CategoryTabs.noteOfDescents,
+          CategoryTabs.variety,
         ];
       default:
         return [];

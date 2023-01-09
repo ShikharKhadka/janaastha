@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jana_aastha/utils/constants.dart';
 import 'package:pdfx/pdfx.dart';
-import 'package:turn_page_transition/turn_page_transition.dart';
 
 import '../controllers/epaper_controller.dart';
 
@@ -13,9 +12,9 @@ class EpaperView extends GetView<EpaperController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.epaper != null
-            ? controller.epaper!.publishedAt.toString()
-            : ""),
+        backgroundColor: AppColors.primaryColor,
+        title:
+            Text(controller.pdfFile != null ? controller.pdfFile!.title : ""),
         centerTitle: true,
       ),
       body: controller.pdfcontroller != null

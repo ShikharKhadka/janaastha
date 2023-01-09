@@ -10,6 +10,8 @@ import '../modules/explore/bindings/explore_binding.dart';
 import '../modules/explore/views/explore_view.dart';
 import '../modules/network_service/bindings/network_service_binding.dart';
 import '../modules/network_service/views/network_service_view.dart';
+import '../modules/search/bindings/search_binding.dart';
+import '../modules/search/views/search_view.dart';
 
 part 'app_routes.dart';
 
@@ -19,7 +21,6 @@ class AppPages {
   static const INITIAL = Routes.DASHBOARD;
 
   static final routes = [
-
     GetPage(
       name: _Paths.E_PAPER,
       page: () => EPaperListView(),
@@ -44,6 +45,11 @@ class AppPages {
       name: _Paths.EPAPER,
       page: () => const EpaperView(),
       binding: EpaperBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
     ),
   ];
 }

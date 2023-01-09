@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:jana_aastha/app/model/epaper_model.dart';
 import 'package:jana_aastha/utils/constants.dart';
+import 'package:nepali_utils/nepali_utils.dart';
 
 import '../controllers/e_paper_list_controller.dart';
 import 'package:jana_aastha/app/routes/app_pages.dart';
@@ -14,6 +16,8 @@ class EPaperListView extends GetView<EPaperListController> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: AppColors.primaryColor,
+            title: Text('Epapers List'),
+            centerTitle: true,
           ),
           body: Obx(
             (() => controller.isLoading.value
@@ -31,7 +35,14 @@ class EPaperListView extends GetView<EPaperListController> {
                           return GestureDetector(
                             onTap: (() {
                               Get.toNamed(Routes.EPAPER, arguments: {
-                                "ePaper": controller.epaperList[index]
+                                "pdf": PdfFile(
+                                  title: NepaliDateFormat.yMMMMEEEEd(
+                                          Language.nepali)
+                                      .format(controller
+                                          .epaperList[index].publishedAt
+                                          .toNepaliDateTime()),
+                                  url: controller.epaperList[index].file,
+                                )
                               });
                             }),
                             child: Card(
@@ -45,14 +56,17 @@ class EPaperListView extends GetView<EPaperListController> {
                                     height: MediaQuery.of(context).size.height *
                                         0.05,
                                     child: Image.asset(
-                                      'assets/images/logo1.png',
+                                      'assets/images/logo.png',
                                     ),
                                   ),
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text(controller.epaperList[index].publishedAt
-                                      .toString())
+                                  Text(NepaliDateFormat.yMMMMEEEEd(
+                                          Language.nepali)
+                                      .format(controller
+                                          .epaperList[index].publishedAt
+                                          .toNepaliDateTime()))
                                 ],
                               ),
                             ),

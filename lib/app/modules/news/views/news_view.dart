@@ -16,6 +16,7 @@ class NewsView extends StatelessWidget {
   final CategoryTabs category;
   final AuthorResult? author;
   final bool isSubCategory;
+  final NewsController? controller;
   final NewsListType newsListType;
   const NewsView({
     Key? key,
@@ -23,23 +24,25 @@ class NewsView extends StatelessWidget {
     this.author,
     required this.newsListType,
     this.isSubCategory = false,
+    this.controller,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<NewsController>(
-        init: Get.put(
-          NewsController(
-            category: category,
-            author: author,
-          ),
-          tag: category.name,
-        ),
+        init: controller ??
+            Get.put(
+              NewsController(
+                category: category,
+                author: author,
+              ),
+              tag: category.name,
+            ),
         tag: category.name,
         builder: (controller) {
           return Scaffold(
             appBar: category.forExplore || isSubCategory
                 ? AppBar(
-                    title: Text(category.nepaliNames),
+                    title: Text(category.displayName),
                     centerTitle: true,
                     backgroundColor: AppColors.primaryColor,
                     leading: Padding(
@@ -82,6 +85,7 @@ class NewsView extends StatelessWidget {
                             controller: controller.scrollController,
                             itemCount: controller.newsList.length,
                             itemBuilder: (context, index) {
+                              
                               // int nextIndex = index;
                               // int secondIndex = index;
                               log(newsListType.toString());
@@ -130,7 +134,7 @@ class NewsView extends StatelessWidget {
                           ),
                         )
                       : Center(
-                          child: Text('Something went wrong'),
+                          child: Text('No news found'),
                         ),
             ),
           );

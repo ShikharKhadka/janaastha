@@ -1,8 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // To parse this JSON data, do
 //
 //     final epaperModel = epaperModelFromJson(jsonString);
 
 import 'dart:convert';
+
+
 
 class EpaperModel {
   EpaperModel({
@@ -59,4 +62,14 @@ class Epaper {
         thumbnail: json["thumbnail"],
         file: json["file"],
       );
+}
+
+class PdfFile {
+  final String url;
+  final String title;
+
+  PdfFile({
+    required this.url,
+    required this.title,
+  });
 }
