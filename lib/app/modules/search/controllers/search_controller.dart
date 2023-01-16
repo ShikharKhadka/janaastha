@@ -36,7 +36,9 @@ class SearchController extends GetxController {
   }
 
   void searchText() async {
+    newsController.reset();
     if (searchEditingController.text != '') {
+      newsController.searchText = searchEditingController.text;
       await newsController.getNews();
     }
   }

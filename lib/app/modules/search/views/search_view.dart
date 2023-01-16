@@ -11,45 +11,50 @@ class SearchView extends GetView<SearchController> {
   const SearchView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
-        title: Container(
-          width: double.infinity,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5)),
-          child: Center(
-            child: TextField(
-              focusNode: controller.searchFocus,
-              controller: controller.searchEditingController,
-              onSubmitted: controller.search,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(5),
-                  prefixIcon: IconButton(
-                    icon: const Icon(Icons.search),
-                    color: AppColors.primaryColor,
-                    onPressed: controller.searchText,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear),
-                    color: AppColors.primaryColor,
-                    onPressed: controller.clearSearch,
-                  ),
-                  hintText: 'Search...',
-                  border: InputBorder.none),
+    return GetBuilder<SearchController>(
+      init: Get.put(SearchController()),
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.primaryColor,
+            title: Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
+              child: Center(
+                child: TextField(
+                  focusNode: controller.searchFocus,
+                  controller: controller.searchEditingController,
+                  onSubmitted: controller.search,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(5),
+                      prefixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        color: AppColors.primaryColor,
+                        onPressed: controller.searchText,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.clear),
+                        color: AppColors.primaryColor,
+                        onPressed: controller.clearSearch,
+                      ),
+                      hintText: 'Search...',
+                      border: InputBorder.none),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-      body: GestureDetector(
-        onTap: controller.dismissKeyboard,
-        child: NewsView(
-          category: CategoryTabs.search,
-          newsListType: NewsListType.regular,
-          controller: controller.newsController,
-        ),
-      ),
+          body: GestureDetector(
+            onTap: controller.dismissKeyboard,
+            child: NewsView(
+              category: CategoryTabs.search,
+              newsListType: NewsListType.regular,
+              controller: controller.newsController,
+            ),
+          ),
+        );
+      },
     );
   }
 }

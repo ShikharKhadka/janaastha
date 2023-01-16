@@ -169,6 +169,8 @@ class ExploreView extends StatelessWidget {
                                                 null
                                             ? CircleAvatar(
                                                 radius: 30,
+                                                backgroundColor:
+                                                    AppColors.primaryColor,
                                                 backgroundImage:
                                                     CachedNetworkImageProvider(
                                                   controller

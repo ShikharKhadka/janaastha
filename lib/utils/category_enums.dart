@@ -1,5 +1,3 @@
-
-
 enum CategoryTabs {
   home,
   recent,
@@ -26,7 +24,7 @@ enum CategoryTabs {
   crime,
   variety,
   reader,
-  multimedia,
+  video,
   author,
   others,
   photoFeature,
@@ -84,7 +82,7 @@ extension CategoryX on CategoryTabs {
         return "बिबिध";
       case CategoryTabs.reader:
         return "पाठकपत्र";
-      case CategoryTabs.multimedia:
+      case CategoryTabs.video:
         return "मल्टिमिडिया";
       case CategoryTabs.others:
         return "अन्य";
