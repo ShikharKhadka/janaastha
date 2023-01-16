@@ -33,7 +33,7 @@ class NewsController extends GetxController {
   }
 
   void _scrollListener() async {
-    Get.find<SearchController>().dismissKeyboard();
+    FocusManager.instance.primaryFocus?.unfocus();
     if (scrollController.position.pixels ==
                 scrollController.position.maxScrollExtent &&
             !isFetchingNextPage.value

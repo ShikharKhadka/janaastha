@@ -7,7 +7,7 @@ import 'package:jana_aastha/utils/constants.dart';
 
 import '../controllers/search_controller.dart';
 
-class SearchView extends GetView<SearchController> {
+class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,9 @@ class SearchView extends GetView<SearchController> {
             ),
           ),
           body: GestureDetector(
-            onTap: controller.dismissKeyboard,
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
             child: NewsView(
               category: CategoryTabs.search,
               newsListType: NewsListType.regular,

@@ -39,6 +39,7 @@ class SearchController extends GetxController {
     newsController.reset();
     if (searchEditingController.text != '') {
       newsController.searchText = searchEditingController.text;
+      update();
       await newsController.getNews();
     }
   }
