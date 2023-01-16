@@ -5,7 +5,7 @@ enum CategoryTabs {
   news,
   politics,
   finance,
-  literatureOne,
+  litaratureOne,
   health,
   tourism,
   world,
@@ -44,7 +44,7 @@ extension CategoryX on CategoryTabs {
         return "राजनीति";
       case CategoryTabs.finance:
         return "अर्थ";
-      case CategoryTabs.literatureOne:
+      case CategoryTabs.litaratureOne:
         return "लेख रचना";
       case CategoryTabs.health:
         return "स्वास्थ्य";
@@ -107,8 +107,8 @@ extension CategoryX on CategoryTabs {
     switch (this) {
       case CategoryTabs.news:
         return 'main-news';
-      case CategoryTabs.literatureOne:
-        return 'literature-1';
+      case CategoryTabs.litaratureOne:
+        return 'litarature-1';
       case CategoryTabs.interviews:
         return 'interviews';
       case CategoryTabs.pradeshOne:
