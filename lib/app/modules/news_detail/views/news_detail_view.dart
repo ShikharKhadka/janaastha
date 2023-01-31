@@ -10,10 +10,10 @@ import 'package:jana_aastha/app/model/epaper_model.dart';
 import 'package:jana_aastha/app/model/news_model.dart';
 import 'package:jana_aastha/app/routes/app_pages.dart';
 import 'package:jana_aastha/utils/constants.dart';
-import 'package:nepali_utils/nepali_utils.dart';
+
 import 'package:pdfx/pdfx.dart';
 import 'package:share_plus/share_plus.dart';
-
+import 'package:jana_aastha/utils/string_extenion.dart';
 import '../controllers/news_detail_controller.dart';
 
 class NewsDetailView extends StatelessWidget {
@@ -123,7 +123,7 @@ class NewsDetailView extends StatelessWidget {
                                   ),
                                   Flexible(
                                     child: Text(
-                                      "${NepaliUnicode.convert(NepaliDateFormat("d MMMM y, EEE").format(NepaliDateTime.parse(news.modified.toString())))}",
+                                      news.dateNepali.parseToNepaliDateTime!,
                                       textAlign: TextAlign.left,
                                       style: authorStyle,
                                     ),
@@ -200,7 +200,7 @@ class NewsDetailView extends StatelessWidget {
                           Spacer(),
                           IconButton(
                               onPressed: () {
-                                Share.share(news.url);
+                                Share.share("janaaastha.com${news.url}");
                               },
                               icon: Icon(
                                 Icons.share,

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:jana_aastha/app/api/news_api.dart';
 import 'package:jana_aastha/app/endpoints/endpoints.dart';
 import 'package:jana_aastha/app/model/author_model.dart';
-import 'package:jana_aastha/app/modules/search/controllers/search_controller.dart';
+
 import 'package:jana_aastha/utils/category_enums.dart';
 import 'package:jana_aastha/app/model/news_model.dart';
 
