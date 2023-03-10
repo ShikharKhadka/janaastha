@@ -18,6 +18,7 @@ class NewsController extends GetxController {
   final isFetchingNextPage = false.obs;
   int currentPage = 0;
   String searchText = '';
+  late String errorText;
   NewsController({
     required this.category,
     this.author,
@@ -72,11 +73,16 @@ class NewsController extends GetxController {
         isLoading(false);
         isFetchingNextPage(false);
         update();
+        errorText = 'No news found';
+        update();
       } else {
         isLoading(true);
       }
-    } catch (_) {
-      isLoading(true);
+    } catch (e) {
+      print(e.toString());
+      await Future.delayed(Duration(seconds: 3));
+      errorText = "No Internet Connection";
+      isLoading(false);
       isFetchingNextPage(true);
     }
   }

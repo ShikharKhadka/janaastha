@@ -247,12 +247,15 @@ class NewsDetailView extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.EPAPER, arguments: {
-                                    "pdf": PdfFile(
-                                      title: "",
-                                      url: controller.pdfUrl!,
-                                    )
-                                  });
+                                  Get.toNamed(
+                                    Routes.EPAPER,
+                                    arguments: {
+                                      "pdf": PdfFile(
+                                        title: "",
+                                        url: controller.pdfUrl!,
+                                      )
+                                    },
+                                  );
                                 },
                                 child: Container(
                                   width: double.infinity,

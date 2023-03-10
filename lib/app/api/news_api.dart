@@ -22,13 +22,10 @@ class NewsApi3 {
         var body =
             NewsModel.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
         return body;
-      } else {
-        return null;
       }
     } catch (e) {
-      
       print("Error:::::::::: $e");
-      return null;
+      throw e.toString();
     }
   }
 }

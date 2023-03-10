@@ -29,115 +29,114 @@ class NewsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<NewsController>(
-        init: controller ??
-            Get.put(
-              NewsController(
-                category: category,
-                author: author,
-              ),
-              tag: category.name,
+      init: controller ??
+          Get.put(
+            NewsController(
+              category: category,
+              author: author,
             ),
-        tag: category.name,
-        builder: (controller) {
-          return Scaffold(
-            appBar: category.forExplore || isSubCategory
-                ? AppBar(
-                    title: Text(category.displayName),
-                    centerTitle: true,
-                    backgroundColor: AppColors.primaryColor,
-                    leading: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.r),
-                      child: IconButton(
-                          onPressed: () {
-                            Get.back();
+            tag: category.name,
+          ),
+      tag: category.name,
+      builder: (controller) {
+        return Scaffold(
+          appBar: category.forExplore || isSubCategory
+              ? AppBar(
+                  title: Text(category.displayName),
+                  centerTitle: true,
+                  backgroundColor: AppColors.primaryColor,
+                  leading: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10.r),
+                    child: IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_ios,
+                          color: AppColors.whiteColor,
+                        )),
+                  ),
+                )
+              : category == CategoryTabs.author && author != null
+                  ? AppBar(
+                      title: Text(author!.name ?? ""),
+                      centerTitle: true,
+                      backgroundColor: AppColors.primaryColor,
+                      leading: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10.r),
+                        child: IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: AppColors.whiteColor,
+                            )),
+                      ),
+                    )
+                  : null,
+          body: Obx(
+            () => controller.isLoading.value
+                ? Center(child: CircularProgressIndicator())
+                : controller.newsList.isNotEmpty
+                    ? RefreshIndicator(
+                        onRefresh: controller.onRefresh,
+                        child: ListView.builder(
+                          controller: controller.scrollController,
+                          itemCount: controller.newsList.length,
+                          itemBuilder: (context, index) {
+                            // int nextIndex = index;
+                            // int secondIndex = index;
+                            log(newsListType.toString());
+
+                            return newsListType == NewsListType.regular
+                                ? LargeVerticalNewsCard(
+                                    newsResult: controller.newsList[index],
+                                  )
+                                : index % 2 == 0
+                                    ? LargeVerticalNewsCard(
+                                        newsResult: controller.newsList[index],
+                                      )
+                                    : index != controller.newsList.length - 1
+                                        ? Row(
+                                            children:
+                                                // List.generate(
+                                                //   2,
+                                                //   (i) => Expanded(
+                                                //     child: SmallVerticalNewsCard(
+                                                //       newsResult:
+                                                //           controller.newsList[i],
+                                                //     ),
+                                                //   ),
+                                                // )
+                                                [
+                                              Expanded(
+                                                child: SmallVerticalNewsCard(
+                                                  newsResult: controller
+                                                      .newsList[index],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: SmallVerticalNewsCard(
+                                                  newsResult: controller
+                                                      .newsList[index],
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : LargeVerticalNewsCard(
+                                            newsResult:
+                                                controller.newsList[index],
+                                          );
                           },
-                          icon: Icon(
-                            Icons.arrow_back_ios,
-                            color: AppColors.whiteColor,
-                          )),
-                    ),
-                  )
-                : category == CategoryTabs.author && author != null
-                    ? AppBar(
-                        title: Text(author!.name ?? ""),
-                        centerTitle: true,
-                        backgroundColor: AppColors.primaryColor,
-                        leading: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10.r),
-                          child: IconButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              icon: Icon(
-                                Icons.arrow_back_ios,
-                                color: AppColors.whiteColor,
-                              )),
                         ),
                       )
-                    : null,
-            body: Obx(
-              () => controller.isLoading.value
-                  ? Center(child: CircularProgressIndicator())
-                  : controller.newsList.isNotEmpty
-                      ? RefreshIndicator(
-                          onRefresh: controller.onRefresh,
-                          child: ListView.builder(
-                            controller: controller.scrollController,
-                            itemCount: controller.newsList.length,
-                            itemBuilder: (context, index) {
-                              
-                              // int nextIndex = index;
-                              // int secondIndex = index;
-                              log(newsListType.toString());
-
-                              return newsListType == NewsListType.regular
-                                  ? LargeVerticalNewsCard(
-                                      newsResult: controller.newsList[index],
-                                    )
-                                  : index % 2 == 0
-                                      ? LargeVerticalNewsCard(
-                                          newsResult:
-                                              controller.newsList[index],
-                                        )
-                                      : index != controller.newsList.length - 1
-                                          ? Row(
-                                              children:
-                                                  // List.generate(
-                                                  //   2,
-                                                  //   (i) => Expanded(
-                                                  //     child: SmallVerticalNewsCard(
-                                                  //       newsResult:
-                                                  //           controller.newsList[i],
-                                                  //     ),
-                                                  //   ),
-                                                  // )
-                                                  [
-                                                Expanded(
-                                                  child: SmallVerticalNewsCard(
-                                                    newsResult: controller
-                                                        .newsList[index],
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: SmallVerticalNewsCard(
-                                                    newsResult: controller
-                                                        .newsList[index],
-                                                  ),
-                                                ),
-                                              ],
-                                            )
-                                          : LargeVerticalNewsCard(
-                                              newsResult:
-                                                  controller.newsList[index],
-                                            );
-                            },
-                          ),
-                        )
-                      : Center(
-                          child: Text('No news found'),
-                        ),
-            ),
-          );
-        });
+                    : Center(
+                        child: Text(controller.errorText),
+                      ),
+          ),
+        );
+      },
+    );
   }
 }
